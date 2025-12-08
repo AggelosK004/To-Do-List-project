@@ -4,7 +4,7 @@ const API_URL = 'https://todo-backend-i6zl.onrender.com';
 // Store user data and token
 let currentUser = null;
 let authToken = null;
-let tasks = [];
+let tasks = []; 
 
 // DOM Elements
 const authContainer = document.getElementById('authContainer');
