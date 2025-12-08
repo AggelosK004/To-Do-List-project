@@ -1,5 +1,5 @@
 ﻿// API Base URL
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://todo-backend-i6zl.onrender.com';
 
 // Store user data and token
 let currentUser = null;
