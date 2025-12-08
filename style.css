@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  background: linear-gradient(135deg, hsl(210, 60%, 95%), hsl(225, 64%, 39%));
+  background: linear-gradient(135deg, hsl(219, 64%, 49%) 0%, hsl(225, 64%, 39%) 50%, hsl(219, 64%, 29%) 100%);
   min-height: 100vh;
   padding: 20px;
 }
@@ -15,30 +15,59 @@ body {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: hsla(225, 64%, 39%, 0);
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  /* 👇 IMPORTANT: This keeps the button inside this box */
+  position: relative; 
 }
 
 h1 {
   color: hsl(225, 64%, 39%);
   font-size: clamp(24px, 5vw, 36px);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.container > div:first-of-type {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  max-width: 600px;
+.user-info {
+  text-align: center;
+  color: hsl(225, 64%, 39%);
   margin-bottom: 20px;
-  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.auth-container, .todo-container {
+  display: none;
+}
+
+.auth-container.active, .todo-container.active {
+  display: block;
+}
+
+.auth-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: hsl(225, 64%, 39%);
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid hsl(219, 64%, 39%);
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 button {
@@ -51,6 +80,8 @@ button {
   font-size: 16px;
   transition: background-color 0.3s ease;
   white-space: nowrap;
+  width: 100%;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -61,17 +92,46 @@ button:active {
   transform: scale(0.98);
 }
 
+.auth-toggle {
+  text-align: center;
+  margin-top: 15px;
+  color: hsl(225, 64%, 39%);
+  font-size: 14px;
+}
+
+.auth-toggle a {
+  color: hsl(219, 64%, 39%);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.error-message.active {
+  display: block;
+}
+
+.task-input-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 #taskInput {
   flex: 1;
-  min-width: 200px;
-  padding: 10px;
-  border: 2px solid hsl(219, 64%, 39%);
-  border-radius: 5px;
-  font-size: 16px;
+  margin-bottom: 0;
 }
 
 #addButton {
-  flex-shrink: 0;
+  width: auto;
+  margin-top: 0;
 }
 
 ul {
@@ -80,7 +140,6 @@ ul {
   padding: 20px;
   border-radius: 5px;
   width: 100%;
-  max-width: 600px;
   list-style-type: none;
   font-size: 18px;
   color: hsl(225, 64%, 39%);
@@ -135,13 +194,15 @@ li input[type="checkbox"] {
 .edit-btn, .delete-btn {
   padding: 6px 12px;
   font-size: 14px;
+  width: auto;
+  margin-top: 0;
 }
 
-.delete-btn {
+.delete-btn, .logout-btn {
   background-color: hsl(0, 64%, 49%);
 }
 
-.delete-btn:hover {
+.delete-btn:hover, .logout-btn:hover {
   background-color: hsl(0, 64%, 39%);
 }
 
@@ -159,29 +220,38 @@ li input[type="checkbox"] {
   min-width: 150px;
 }
 
-@media (max-width: 768px) {
-  body, .container { padding: 15px; }
-  h1 { margin-bottom: 15px; }
-  ul { padding: 15px; font-size: 16px; }
+/* --- LOGOUT BUTTON AT TOP LEFT OF CONTAINER --- */
+.logout-btn {
+  position: absolute; /* Positions it relative to the .container */
+  top: 20px;          /* 20px from the top of the white box */
+  left: 20px;         /* 20px from the left of the white box */
+  width: auto;
+  margin: 0;
+  padding: 5px 15px;  /* Smaller padding for a corner button */
+  font-size: 14px;
+}
+
+#emptyMessage {
+  text-align: center;
+  color: #02349a92;
+  margin: 20px 0;
 }
 
 @media (max-width: 480px) {
-  body, .container { padding: 10px; }
-  .container > div:first-of-type { flex-direction: column; }
-  #taskInput, #addButton { width: 100%; min-width: 100%; }
-  h1 { margin-bottom: 15px; }
-  button { padding: 10px 15px; font-size: 14px; }
-  ul { padding: 12px; }
-  li { padding: 10px 0; gap: 8px; }
-  .task-text { min-width: 100px; font-size: 15px; }
-  .task-buttons { width: 100%; justify-content: flex-end; gap: 8px; }
-  .edit-btn, .delete-btn { padding: 6px 10px; font-size: 13px; flex: 1; }
-  li input[type="checkbox"] { width: 20px; height: 20px; }
-}
+  .task-input-container {
+    flex-direction: column;
+  }
 
-@media (max-width: 320px) {
-  h1 { font-size: 20px; }
-  ul { font-size: 14px; padding: 10px; }
-  .task-text { font-size: 14px; }
-  .edit-btn, .delete-btn { font-size: 12px; padding: 5px 8px; }
+  #addButton {
+    width: 100%;
+  }
+
+  .task-buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .edit-btn, .delete-btn {
+    flex: 1;
+  }
 }
