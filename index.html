@@ -9,7 +9,6 @@
   <body>
     <div class="container">
       <h1>Simple To-Do List</h1>
-      <button class="logout-btn" id="logoutButton">Logout</button>
 
       <div class="auth-container active" id="authContainer">
         <div class="auth-form">
@@ -90,10 +89,12 @@
       </div>
 
       <div class="todo-container" id="todoContainer">
-        <div class="user-info">
-          Welcome, <strong id="currentUsername"></strong>!
+        <div class="app-header">
+          <div class="user-info">
+            <h2>Welcome, <strong id="currentUsername"></strong>!</h2>
+          </div>
+          <button class="logout-btn" id="logoutButton">Logout</button>
         </div>
-
         <div class="task-input-container">
           <input id="taskInput" placeholder="Add a new task..." />
           <button id="addButton">Add</button>

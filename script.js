@@ -1,5 +1,6 @@
-﻿// API Base URL
-const API_URL = 'https://todo-backend-i6zl.onrender.com';
+﻿const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3001' 
+  : 'https://todo-backend-z8vj.onrender.com'; 
 
 // Store user data and token
 let currentUser = null;
@@ -14,6 +15,7 @@ const registerForm = document.getElementById('registerForm');
 const authError = document.getElementById('authError');
 const taskInput = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
+const logoutButton = document.getElementById('logoutButton');
 
 // Check if user is already logged in (token in localStorage)
 function checkAuth() {
@@ -27,22 +29,28 @@ function checkAuth() {
   } else {
     showAuthForm();
   }
+  changeAuthStyle();
 }
 
-// Show authentication form
+function changeAuthStyle(){
+  if (authToken){
+    logoutButton.style.display = 'block';
+  }else{
+    logoutButton.style.display = 'none';
+  }
+}
+
 function showAuthForm() {
   authContainer.classList.add('active');
   todoContainer.classList.remove('active');
 }
 
-// Show to-do app
 function showTodoApp() {
   authContainer.classList.remove('active');
   todoContainer.classList.add('active');
   document.getElementById('currentUsername').textContent = currentUser.username;
 }
 
-// Show error message
 function showError(message) {
   authError.textContent = message;
   authError.classList.add('active');
@@ -100,8 +108,8 @@ document.getElementById('registerButton').addEventListener('click', async () => 
     localStorage.setItem('authToken', authToken);
     localStorage.setItem('userData', JSON.stringify(currentUser));
 
-    // Show to-do app
     showTodoApp();
+    changeAuthStyle();
     loadTasks();
   } catch (error) {
     showError('Network error. Please try again.');
@@ -109,7 +117,6 @@ document.getElementById('registerButton').addEventListener('click', async () => 
   }
 });
 
-// Login
 document.getElementById('loginButton').addEventListener('click', async () => {
   const username = document.getElementById('loginUsername').value.trim();
   const password = document.getElementById('loginPassword').value;
@@ -139,16 +146,16 @@ document.getElementById('loginButton').addEventListener('click', async () => {
     localStorage.setItem('authToken', authToken);
     localStorage.setItem('userData', JSON.stringify(currentUser));
 
-    // Show to-do app
     showTodoApp();
+    changeAuthStyle();
     loadTasks();
   } catch (error) {
     showError('Network error. Please try again.');
     console.error('Login error:', error);
   }
+  
 });
 
-// Logout
 document.getElementById('logoutButton').addEventListener('click', () => {
   authToken = null;
   currentUser = null;
@@ -156,13 +163,12 @@ document.getElementById('logoutButton').addEventListener('click', () => {
   localStorage.removeItem('authToken');
   localStorage.removeItem('userData');
   showAuthForm();
+  changeAuthStyle();
   
-  // Clear forms
   document.getElementById('loginUsername').value = '';
   document.getElementById('loginPassword').value = '';
 });
 
-// Load tasks
 async function loadTasks() {
   try {
     const response = await fetch(`${API_URL}/tasks`, {
@@ -300,6 +306,8 @@ async function deleteTask(taskId) {
 
 // Edit task
 function editTask(li, task) {
+  const checkbox = li.querySelector('input[type="checkbox"]');
+  if (checkbox) checkbox.style.display = 'none';
   const taskTextSpan = li.querySelector('.task-text');
   const buttonContainer = li.querySelector('.task-buttons');
 
@@ -309,6 +317,7 @@ function editTask(li, task) {
 
   const saveBtn = document.createElement('button');
   saveBtn.textContent = 'Save';
+  saveBtn.className = 'edit-btn';
   saveBtn.addEventListener('click', async () => {
     const newText = editInput.value.trim();
     if (newText) {
@@ -334,7 +343,7 @@ function editTask(li, task) {
   editInput.focus();
 }
 
-// Enter key support
+// press enter key
 taskInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') document.getElementById('addButton').click();
 });

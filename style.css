@@ -1,4 +1,6 @@
-﻿* {
+﻿@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -19,20 +21,27 @@ body {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  /* 👇 IMPORTANT: This keeps the button inside this box */
   position: relative; 
 }
 
 h1 {
   color: hsl(225, 64%, 39%);
-  font-size: clamp(24px, 5vw, 36px);
+  font-family: 'Caveat Brush', cursive;
+  font-size: clamp(32px, 8vw, 48px);
   margin-bottom: 10px;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+h2{
+  font-weight:normal;
 }
 
 .user-info {
   text-align: center;
+  font-family: 'Caveat Brush', cursive;
+  font-size:500%;
   color: hsl(225, 64%, 39%);
   margin-bottom: 20px;
   font-size: 14px;
@@ -220,16 +229,19 @@ li input[type="checkbox"] {
   min-width: 150px;
 }
 
-/* --- LOGOUT BUTTON AT TOP LEFT OF CONTAINER --- */
+
 .logout-btn {
-  position: absolute; /* Positions it relative to the .container */
-  top: 20px;          /* 20px from the top of the white box */
-  left: 20px;         /* 20px from the left of the white box */
+  position: absolute;
+  top: 20px;
+  right: 20px;          
   width: auto;
   margin: 0;
-  padding: 5px 15px;  /* Smaller padding for a corner button */
+  padding: 8px 15px;    
   font-size: 14px;
+  z-index: 10;          
 }
+
+
 
 #emptyMessage {
   text-align: center;
@@ -249,9 +261,24 @@ li input[type="checkbox"] {
   .task-buttons {
     width: 100%;
     justify-content: flex-end;
+    margin-top: 10px; 
   }
 
   .edit-btn, .delete-btn {
     flex: 1;
+  }
+
+  
+  .logout-btn {
+     padding: 5px 10px;
+     font-size: 12px;
+     top: 15px;
+     right: 15px;
+     max-width: none;
+     display: block; 
+  }
+  
+  .container {
+     padding-top: 50px; 
   }
 }
