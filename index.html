@@ -7,102 +7,96 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Simple To-Do List</h1>
+    <div class="main-layout">
+      <div class="layout-col left-col"></div>
 
-      <div class="auth-container active" id="authContainer">
-        <div class="auth-form">
-          <div class="error-message" id="authError"></div>
+      <div class="layout-col middle-col">
+        <div class="container">
+          <h1>Simple To-Do List</h1>
 
-          <div id="loginForm">
-            <h2
-              style="
-                text-align: center;
-                color: hsl(225, 64%, 39%);
-                margin-bottom: 20px;
-              "
-            >
-              Login
-            </h2>
-            <div class="form-group">
-              <label for="loginUsername">Username</label>
-              <input
-                type="text"
-                id="loginUsername"
-                placeholder="Enter username"
-              />
-            </div>
-            <div class="form-group">
-              <label for="loginPassword">Password</label>
-              <input
-                type="password"
-                id="loginPassword"
-                placeholder="Enter password"
-              />
-            </div>
-            <button id="loginButton">Login</button>
-            <div class="auth-toggle">
-              Don't have an account? <a id="showRegister">Register here</a>
+          <div class="auth-container active" id="authContainer">
+            <div class="auth-form">
+              <div class="error-message" id="authError"></div>
+
+              <div id="loginForm">
+                <h2 class="auth-title">Login</h2>
+                <div class="form-group">
+                  <label for="loginUsername">Username</label>
+                  <input
+                    type="text"
+                    id="loginUsername"
+                    placeholder="Enter username"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="loginPassword">Password</label>
+                  <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                  />
+                </div>
+                <button id="loginButton">Login</button>
+                <div class="auth-toggle">
+                  Don't have an account? <a id="showRegister">Register here</a>
+                </div>
+              </div>
+
+              <div id="registerForm" style="display: none">
+                <h2 class="auth-title">Register</h2>
+                <div class="form-group">
+                  <label for="registerUsername">Username</label>
+                  <input
+                    type="text"
+                    id="registerUsername"
+                    placeholder="Choose a username"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="registerEmail">Email</label>
+                  <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="registerPassword">Password</label>
+                  <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Choose a password"
+                  />
+                </div>
+                <button id="registerButton">Register</button>
+                <div class="auth-toggle">
+                  Already have an account? <a id="showLogin">Login here</a>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div id="registerForm" style="display: none">
-            <h2
-              style="
-                text-align: center;
-                color: hsl(225, 64%, 39%);
-                margin-bottom: 20px;
-              "
-            >
-              Register
-            </h2>
-            <div class="form-group">
-              <label for="registerUsername">Username</label>
-              <input
-                type="text"
-                id="registerUsername"
-                placeholder="Choose a username"
-              />
+          <div class="todo-container" id="todoContainer">
+            <div class="app-header">
+              <div class="user-info">
+                <h2 id="user-welcome">
+                  Welcome, <span id="currentUsername"></span>!
+                </h2>
+              </div>
+              <button class="logout-btn" id="logoutButton">Logout</button>
             </div>
-            <div class="form-group">
-              <label for="registerEmail">Email</label>
-              <input
-                type="email"
-                id="registerEmail"
-                placeholder="Enter your email"
-              />
+            <div class="task-input-container">
+              <input id="taskInput" placeholder="Add a new task..." />
+              <button id="addButton">Add</button>
             </div>
-            <div class="form-group">
-              <label for="registerPassword">Password</label>
-              <input
-                type="password"
-                id="registerPassword"
-                placeholder="Choose a password (min 6 characters)"
-              />
-            </div>
-            <button id="registerButton">Register</button>
-            <div class="auth-toggle">
-              Already have an account? <a id="showLogin">Login here</a>
-            </div>
+
+            <ul id="taskList"></ul>
           </div>
         </div>
       </div>
 
-      <div class="todo-container" id="todoContainer">
-        <div class="app-header">
-          <div class="user-info">
-            <h2>Welcome, <strong id="currentUsername"></strong>!</h2>
-          </div>
-          <button class="logout-btn" id="logoutButton">Logout</button>
-        </div>
-        <div class="task-input-container">
-          <input id="taskInput" placeholder="Add a new task..." />
-          <button id="addButton">Add</button>
-        </div>
+    <div hidden>After changin the asthtic of the app and making a 3 column design, I want to craete a user details section on the right</div>
 
-        <ul id="taskList"></ul>
-      </div>
-    </div>
 
     <script src="script.js"></script>
   </body>

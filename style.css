@@ -1,4 +1,22 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+﻿@import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap");
+
+:root {
+  --app-bg: #000000;
+  --card-bg: #1c1c1e;
+  --input-bg: #2c2c2e;
+  --separator: #38383a;
+
+  --text-primary: #ffffff;
+  --text-secondary: #98989d;
+  --text-placeholder: #636366;
+
+  --accent-yellow: #ffd52e;
+  --accent-yellow-dim: #d9b225;
+  --danger-red: #ff453a;
+
+  --accent-orange: #ff9f43;
+  --accent-orange-dim: #e67e22;
+}
 
 * {
   box-sizing: border-box;
@@ -6,58 +24,167 @@
   padding: 0;
 }
 
+::selection {
+  color: #000000;
+  background-color: #ffd52e;
+}
+
 body {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  background: linear-gradient(135deg, hsl(219, 64%, 49%) 0%, hsl(225, 64%, 39%) 50%, hsl(219, 64%, 29%) 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  color: var(--text-primary);
   min-height: 100vh;
   padding: 20px;
+
+  background-color: var(--app-bg);
+  background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000000 80%);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+.main-layout {
+  display: grid;
+
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.layout-col {
+  min-height: 50px;
+}
+
+/*Empty currently*/
+.left-col {
+  /* iwii add a multiple todo-lists feature in the future*/
 }
 
 .container {
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+
   padding: 30px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  position: relative; 
+
+  background-color: rgba(28, 28, 30, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.right-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  gap: 15px;
+}
+
+.details-card {
+  width: 100%;
+  max-width: 300px;
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--separator);
+  text-align: center;
+
+  background-color: rgba(28, 28, 30, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: top center;
+}
+
+.details-card h3 {
+  color: var(--accent-orange);
+  font-family: "Caveat Brush", cursive;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.details-card.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px) scale(0.95);
+}
+
+.details-card.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0) scale(1);
 }
 
 h1 {
-  color: hsl(225, 64%, 39%);
-  font-family: 'Caveat Brush', cursive;
+  color: var(--accent-yellow);
+  font-family: "Caveat Brush", cursive;
   font-size: clamp(32px, 8vw, 48px);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
 }
 
-h2{
-  font-weight:normal;
+h2 {
+  font-weight: 300;
+  color: var(--text-primary);
+}
+
+.auth-title {
+  text-align: center;
+  color: var(--accent-yellow-dim);
+  margin-bottom: 20px;
 }
 
 .user-info {
   text-align: center;
-  font-family: 'Caveat Brush', cursive;
-  font-size:500%;
-  color: hsl(225, 64%, 39%);
+  font-family: "Caveat Brush", cursive;
+  font-size: 24px;
+  color: var(--text-secondary);
   margin-bottom: 20px;
-  font-size: 14px;
 }
 
-.auth-container, .todo-container {
+#user-welcome {
+  color: rgb(242, 248, 132);
+}
+
+#currentUsername {
+  color: var(--accent-yellow);
+}
+
+.auth-container,
+.todo-container {
   display: none;
 }
 
-.auth-container.active, .todo-container.active {
+.auth-container.active,
+.todo-container.active {
   display: block;
 }
 
 .auth-form {
   max-width: 400px;
   margin: 0 auto;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--separator);
 }
 
 .form-group {
@@ -66,35 +193,47 @@ h2{
 
 label {
   display: block;
-  margin-bottom: 5px;
-  color: hsl(225, 64%, 39%);
+  margin-bottom: 8px;
+  color: var(--text-secondary);
   font-size: 14px;
+  font-weight: 500;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  border: 2px solid hsl(219, 64%, 39%);
-  border-radius: 5px;
+  padding: 12px;
+  background-color: var(--input-bg);
+  border: 1px solid transparent;
+  border-radius: 10px;
   font-size: 16px;
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+input:focus {
+  border-color: var(--accent-yellow);
+  background-color: #3a3a3c;
 }
 
 button {
-  background-color: hsl(219, 64%, 39%);
-  color: white;
-  padding: 10px 20px;
+  background-color: var(--accent-yellow);
+  color: black;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s;
   white-space: nowrap;
   width: 100%;
   margin-top: 10px;
 }
 
 button:hover {
-  background-color: hsl(219, 64%, 29%);
+  background-color: var(--accent-yellow-dim);
 }
 
 button:active {
@@ -104,23 +243,29 @@ button:active {
 .auth-toggle {
   text-align: center;
   margin-top: 15px;
-  color: hsl(225, 64%, 39%);
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
 .auth-toggle a {
-  color: hsl(219, 64%, 39%);
+  color: var(--accent-yellow);
   cursor: pointer;
+  text-decoration: none;
+}
+
+.auth-toggle a:hover {
   text-decoration: underline;
 }
 
 .error-message {
-  background-color: #ffebee;
-  color: #c62828;
+  background-color: rgba(255, 69, 58, 0.1);
+  color: var(--danger-red);
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 15px;
   display: none;
+  text-align: center;
+  border: 1px solid rgba(255, 69, 58, 0.2);
 }
 
 .error-message.active {
@@ -130,12 +275,13 @@ button:active {
 .task-input-container {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 #taskInput {
   flex: 1;
   margin-bottom: 0;
+  background-color: var(--input-bg);
 }
 
 #addButton {
@@ -144,31 +290,36 @@ button:active {
 }
 
 ul {
-  background-color: #f4f4f4;
-  border: 2px solid hsl(219, 64%, 39%);
-  padding: 20px;
-  border-radius: 5px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--separator);
+  padding: 0;
+  border-radius: 12px;
   width: 100%;
   list-style-type: none;
   font-size: 18px;
-  color: hsl(225, 64%, 39%);
+  color: var(--text-primary);
   min-height: 50px;
+  overflow: hidden;
 }
 
 ul:empty {
-  border: none;
   background-color: transparent;
+  border: none;
   min-height: 0;
-  padding: 0;
 }
 
 li {
-  padding: 12px 0;
-  border-bottom: 1px solid #ddd;
+  padding: 16px;
+  border-bottom: 1px solid var(--separator);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
+  transition: background-color 0.2s;
+}
+
+li:hover {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 li:last-child {
@@ -177,10 +328,12 @@ li:last-child {
 
 li input[type="checkbox"] {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
   margin: 0;
+  accent-color: var(--accent-yellow);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
 }
 
 .task-text {
@@ -191,65 +344,102 @@ li input[type="checkbox"] {
 
 .task-text.completed {
   text-decoration: line-through;
-  opacity: 0.6;
+  color: var(--text-secondary);
+  opacity: 0.8;
 }
 
 .task-buttons {
   display: flex;
-  gap: 5px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
-.edit-btn, .delete-btn {
-  padding: 6px 12px;
+.edit-btn,
+.delete-btn {
+  padding: 6px 14px;
   font-size: 14px;
   width: auto;
   margin-top: 0;
+  border-radius: 8px;
 }
 
-.delete-btn, .logout-btn {
-  background-color: hsl(0, 64%, 49%);
+.delete-btn,
+.logout-btn {
+  background-color: rgba(255, 69, 58, 0.15);
+  color: var(--danger-red);
 }
 
-.delete-btn:hover, .logout-btn:hover {
-  background-color: hsl(0, 64%, 39%);
+.delete-btn:hover,
+.logout-btn:hover {
+  background-color: var(--danger-red);
+  color: white;
 }
 
 .edit-btn {
-  background-color: hsl(150, 64%, 39%);
+  background-color: #3a3a3c;
+  color: var(--accent-yellow);
 }
 
 .edit-btn:hover {
-  background-color: hsl(150, 64%, 29%);
+  background-color: #48484a;
 }
 
 .edit-input {
   flex: 1;
   margin-bottom: 0;
   min-width: 150px;
+  background-color: var(--input-bg);
+  color: white;
 }
-
 
 .logout-btn {
   position: absolute;
   top: 20px;
-  right: 20px;          
+  right: 20px;
   width: auto;
   margin: 0;
-  padding: 8px 15px;    
+  padding: 8px 16px;
   font-size: 14px;
-  z-index: 10;          
+  z-index: 10;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 69, 58, 0.3);
 }
-
-
 
 #emptyMessage {
   text-align: center;
-  color: #02349a92;
-  margin: 20px 0;
+  color: var(--text-secondary);
+  margin: 30px 0;
+  font-style: italic;
+  opacity: 0.7;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .middle-col {
+    order: 1;
+  }
+  .right-col {
+    order: 2;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .left-col {
+    order: 3;
+    display: none;
+  }
+
+  .details-card {
+    max-width: 100%;
+  }
+
+  .container {
+    padding: 15px;
+    padding-top: 60px;
+  }
+
   .task-input-container {
     flex-direction: column;
   }
@@ -261,24 +451,20 @@ li input[type="checkbox"] {
   .task-buttons {
     width: 100%;
     justify-content: flex-end;
-    margin-top: 10px; 
+    margin-top: 10px;
   }
 
-  .edit-btn, .delete-btn {
+  .edit-btn,
+  .delete-btn {
     flex: 1;
   }
 
-  
   .logout-btn {
-     padding: 5px 10px;
-     font-size: 12px;
-     top: 15px;
-     right: 15px;
-     max-width: none;
-     display: block; 
-  }
-  
-  .container {
-     padding-top: 50px; 
+    padding: 6px 12px;
+    font-size: 12px;
+    top: 15px;
+    right: 15px;
+    max-width: none;
+    display: block;
   }
 }
